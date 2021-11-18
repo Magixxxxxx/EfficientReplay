@@ -146,7 +146,6 @@ def build_optimizer(cfg: CfgNode, model: torch.nn.Module) -> torch.optim.Optimiz
     # zjw TODO END
 
     optimizer = maybe_add_gradient_clipping(cfg, optimizer)
-    print('\nAdam lr m:{} w:{}'.format(1e-5,1e-4))
     print(optimizer)
     return optimizer
 

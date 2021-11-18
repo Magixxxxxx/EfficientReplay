@@ -20,14 +20,19 @@ DATASET_CATEGORIES = {
 }
 
 # 数据集的子集
+# PREDEFINED_SPLITS_DATASET = {
+#         v : (TRAIN_PATH, os.path.join(ANN_ROOT, v)) 
+#         for v in os.listdir(ANN_ROOT) if 'train' in v
+#     }
+# PREDEFINED_SPLITS_DATASET.update({
+#         v : (VAL_PATH, os.path.join(ANN_ROOT, v)) 
+#         for v in os.listdir(ANN_ROOT) if 'test' in v
+#     })
+
 PREDEFINED_SPLITS_DATASET = {
-        'voc{}_train'.format(v.split('_')[0]) : (TRAIN_PATH, os.path.join(ANN_ROOT, v)) 
-        for v in os.listdir(ANN_ROOT) if 'train' in v
+        v : (TRAIN_PATH, os.path.join(ANN_ROOT, v)) 
+        for v in os.listdir(ANN_ROOT)
     }
-PREDEFINED_SPLITS_DATASET.update({
-        'voc{}_test'.format(v.split('_')[0]) : (VAL_PATH, os.path.join(ANN_ROOT, v)) 
-        for v in os.listdir(ANN_ROOT) if 'test' in v
-    })
 
 def register_dataset():
     """

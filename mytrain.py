@@ -4,6 +4,8 @@ from collections import OrderedDict
 from random import randint
 import detectron2.utils.comm as comm
 from detectron2.checkpoint import DetectionCheckpointer
+
+
 from detectron2.config import get_cfg
 
 from detectron2.engine import DefaultTrainer, default_argument_parser, default_setup, launch
@@ -12,7 +14,42 @@ from detectron2.modeling import GeneralizedRCNNWithTTA
 
 from myILOD.utils.register import my_register
 
+
+import torch,sys, random, logging, time
+import detectron2.utils.comm as comm
+
+
 class Trainer(DefaultTrainer):
+
+    emm = []
+
+    def run_step(self):
+
+        assert self.model.training, "[SimpleTrainer] model was changed to eval mode!"
+        start = time.perf_counter()
+        data = next(self._data_loader_iter)
+        random.choice()
+        print(data[0]['instances'])
+        sys.exit(0)
+        data_time = time.perf_counter() - start
+
+        loss_dict = self.model(data)
+        losses = sum(loss_dict.values())
+
+        self.optimizer.zero_grad()
+        losses.backward()
+
+        # use a new stream so the ops don't wait for DDP
+        with torch.cuda.stream(
+            torch.cuda.Stream()
+        ):
+            metrics_dict = loss_dict
+            metrics_dict["data_time"] = data_time
+            self._write_metrics(metrics_dict)
+            self._detect_anomaly(losses, loss_dict)
+
+        self.optimizer.step()
+
     @classmethod
     def build_evaluator(cls, cfg, dataset_name, output_folder=None):
         if output_folder is None:
@@ -50,9 +87,12 @@ def setup(args):
     return cfg
 
 def main(args):
-    
+
+    # ZJW: Myregister
     my_register()
+
     cfg = setup(args)
+    
     if args.eval_only:
         model = Trainer.build_model(cfg)
 
@@ -76,9 +116,6 @@ def main(args):
 
 if __name__ == "__main__":
     args = default_argument_parser().parse_args()
-    args.config_file = "myILOD/configs/voc.yaml"
-    args.num_gpus = 2
-
     args.dist_url='tcp://127.0.0.1:{}'.format(randint(30000,50000))
     print("Command Line Args:", args)
 
