@@ -8,15 +8,16 @@ MODEL:
 DATALOADER:
   NUM_WORKERS: 4
 DATASETS:
-  TRAIN: ('15+5_50imgs_v2.json', )
+  TRAIN: ('emm+5.json', )
   TEST: ('voc_2007_test', )
+  MEMORY: '../data/voc2007/annotations/emm15_50img.json'
 SOLVER:
   IMS_PER_BATCH: 8
-  BASE_LR: 0.001
+  BASE_LR: 0.01
   STEPS: (12000, 16000)
   MAX_ITER: 18000
   WARMUP_ITERS: 100
 TEST:
-  EVAL_PERIOD: 1000
-OUTPUT_DIR: "./output/emm(15+5)imgs"
+  EVAL_PERIOD: 2000
+OUTPUT_DIR: "./output/emm_imgs_1e-3_b8"
 SEED: 9999

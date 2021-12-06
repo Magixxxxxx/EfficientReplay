@@ -6,3 +6,9 @@ python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.
 
 python mytrain.py --num-gpus 2 --config-file "myILOD/configs/voc.yaml" DATASETS.TRAIN "('[1, 15]-voc_train2007.json', )" OUTPUT_DIR './output/base_15'
 
+python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.TRAIN "('emm+5.json', )" OUTPUT_DIR './output/emmix'
+
+
+python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.TRAIN  "('emm+5.json', )" OUTPUT_DIR './output/emmix_0.001' SOLVER.BASE_LR 0.001
+python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.TRAIN  "('emm+5.json', )" OUTPUT_DIR './output/emmix_0.01' SOLVER.BASE_LR 0.01
+python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.TRAIN  "('emm+5.json', )" OUTPUT_DIR './output/emmix_0.02' SOLVER.BASE_LR 0.02
