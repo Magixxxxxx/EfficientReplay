@@ -11,6 +11,7 @@ from .config import CfgNode as CN
 # IMAGES_PER_BATCH_TRAIN, while the number of images for testing will be
 # IMAGES_PER_BATCH_TEST
 
+
 # -----------------------------------------------------------------------------
 # Config definition
 # -----------------------------------------------------------------------------
@@ -103,7 +104,6 @@ _C.DATASETS.PROPOSAL_FILES_TEST = ()
 # Number of top scoring precomputed proposals to keep for test
 _C.DATASETS.PRECOMPUTED_PROPOSAL_TOPK_TEST = 1000
 
-_C.DATASETS.MEMORY = ""
 
 # -----------------------------------------------------------------------------
 # DataLoader
@@ -500,11 +500,6 @@ _C.MODEL.RESNETS.DEFORM_NUM_GROUPS = 1
 # ---------------------------------------------------------------------------- #
 _C.SOLVER = CN()
 
-# TODO:ILOD configs
-
-_C.SOLVER.OPTIM = 'SGD'
-_C.SOLVER.MASK_LR = 0.00001
-
 # See detectron2/solver/build.py for LR scheduler options
 _C.SOLVER.LR_SCHEDULER_NAME = "WarmupMultiStepLR"
 
@@ -622,4 +617,11 @@ _C.VIS_PERIOD = 0
 _C.GLOBAL = CN()
 _C.GLOBAL.HACK = 1.0
 
+# ---------------------------------------------------------------------------- #
+# TODO:ILOD configs
+# ---------------------------------------------------------------------------- #
 
+_C.SOLVER.OPTIM = 'SGD'
+_C.SOLVER.MASK_LR = 0.00001
+
+_C.DATASETS.MEMORY = ()

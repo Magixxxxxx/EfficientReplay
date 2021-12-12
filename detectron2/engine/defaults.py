@@ -274,9 +274,6 @@ class DefaultTrainer(SimpleTrainer):
         optimizer = self.build_optimizer(cfg, model)
         data_loader = self.build_train_loader(cfg)
 
-        # EMM
-        self.memory = self.build_memory(cfg)
-
         # For training, wrap with DDP. But don't need this for inference.
         if comm.get_world_size() > 1:
             model = DistributedDataParallel(
@@ -422,11 +419,6 @@ class DefaultTrainer(SimpleTrainer):
         return model
 
     @classmethod
-    def build_memory(cls, cfg):
-        memory_dict = {}
-        return memory_dict
-
-    @classmethod
     def build_optimizer(cls, cfg, model):
         """
         Returns:
@@ -446,7 +438,6 @@ class DefaultTrainer(SimpleTrainer):
         return build_lr_scheduler(cfg, optimizer)
 
     @classmethod
-
     def build_train_loader(cls, cfg):
         """
         Returns:
