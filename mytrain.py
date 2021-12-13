@@ -99,7 +99,7 @@ class Trainer(DefaultTrainer):
 
         # input data
         img1 = each_img['image'].byte().permute(1, 2, 0).numpy()
-        lambd = 0.5
+        lambd = np.random.beta(2,2)
         
         # memory data
         mm_data = random.choice(self.memory)
@@ -116,11 +116,11 @@ class Trainer(DefaultTrainer):
         each_img['instances']._fields['gt_boxes'].tensor = torch.cat((each_img['instances']._fields['gt_boxes'].tensor, mm_data['instances']._fields['gt_boxes'].tensor))
         each_img['instances']._fields['gt_classes'] = torch.cat((each_img['instances']._fields['gt_classes'], mm_data['instances']._fields['gt_classes']))
 
-        drawimg = Image.fromarray(mix_img)
-        a = ImageDraw.ImageDraw(drawimg)
-        for b in each_img['instances']._fields['gt_boxes'].tensor:
-            a.rectangle([int(i) for i in b])
-        drawimg.save("0.jpg")
+        # drawimg = Image.fromarray(mix_img)
+        # a = ImageDraw.ImageDraw(drawimg)
+        # for b in each_img['instances']._fields['gt_boxes'].tensor:
+        #     a.rectangle([int(i) for i in b])
+        # drawimg.save("0.jpg")
 
     def run_step(self):
 
@@ -129,13 +129,15 @@ class Trainer(DefaultTrainer):
         data = next(self._data_loader_iter)
 
         # TODO: EMM
-        for each_img in data:
-            self.Mixup(each_img)
+        # for each_img in data:
+        #     self.Mixup(each_img)
         # END
 
         data_time = time.perf_counter() - start
 
         loss_dict = self.model(data)
+        print(loss_dict)
+        sys.exit(0)
         losses = sum(loss_dict.values())
 
         self.optimizer.zero_grad()

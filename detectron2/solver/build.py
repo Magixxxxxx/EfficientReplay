@@ -138,7 +138,6 @@ def build_optimizer(cfg: CfgNode, model: torch.nn.Module) -> torch.optim.Optimiz
     if cfg.SOLVER.OPTIM == "Adam":
         masks = [p for n, p in model.named_parameters() if 'mask' in n]
         nomask_params = [p for n, p in model.named_parameters() if 'mask' not in n]
-
         optimizer = torch.optim.Adam([
             {'params': masks, 'lr': 1e-5, 'weight_decay':cfg.SOLVER.WEIGHT_DECAY_BIAS},
             {'params': nomask_params, 'lr': 1e-4, 'weight_decay':cfg.SOLVER.WEIGHT_DECAY_BIAS}
@@ -146,7 +145,6 @@ def build_optimizer(cfg: CfgNode, model: torch.nn.Module) -> torch.optim.Optimiz
     # zjw TODO END
 
     optimizer = maybe_add_gradient_clipping(cfg, optimizer)
-    print(optimizer)
     return optimizer
 
 

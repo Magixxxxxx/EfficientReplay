@@ -14,3 +14,5 @@ python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.
 python mytrain.py --num-gpus 4 --config-file "myILOD/configs/emm.yaml" DATASETS.TRAIN  "('emm+5.json', )" OUTPUT_DIR './output/emmix_0.02' SOLVER.BASE_LR 0.02
 
 python mytrain.py --num-gpus 2 --config-file "myILOD/configs/emm.yaml" DATASETS.TRAIN  "('emm+5.json', )" OUTPUT_DIR './output/mixup' SOLVER.BASE_LR 0.001
+
+python mytrain.py --num-gpus 1 --config-file "myILOD/configs/emm.yaml" SOLVER.IMS_PER_BATCH 1 SOLVER.BASE_LR 0.001 DATASETS.TRAIN "('emm+5.json', )" OUTPUT_DIR './output/test' 

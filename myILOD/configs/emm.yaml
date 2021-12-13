@@ -12,7 +12,7 @@ DATASETS:
   TEST: ('voc_2007_test', )
   MEMORY: ('emm15_50img.json', )
 SOLVER:
-  IMS_PER_BATCH: 4
+  IMS_PER_BATCH: 8
   BASE_LR: 0.01
   STEPS: (12000, 16000)
   MAX_ITER: 18000
